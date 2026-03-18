@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -7,9 +7,10 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3 className="footer-title">Курсовая работа</h3>
+          <h3 className="footer-title">О системе</h3>
           <p className="footer-description">
-            Демонстрация системы управления состоянием на основе ООП-принципов
+            Интерфейс для работы с состоянием, пользовательскими сценариями и
+            модульной архитектурой на базе собственного store.
           </p>
         </div>
 
@@ -19,35 +20,41 @@ const Footer: React.FC = () => {
             <li>TypeScript</li>
             <li>React</li>
             <li>Vite</li>
-            <li>ООП Architecture</li>
+            <li>Custom Store Architecture</li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h3 className="footer-title">Автор</h3>
+          <h3 className="footer-title">Возможности</h3>
           <p className="author-info">
-            Студент группы ПИ-123<br />
-            Иванов Иван Иванович
+            Разделение ответственности
+            <br />
+            Иммутабельные обновления
+            <br />
+            Масштабируемая структура интерфейса
           </p>
         </div>
 
         <div className="footer-section">
-          <h3 className="footer-title">Руководитель</h3>
+          <h3 className="footer-title">Развитие</h3>
           <p className="supervisor-info">
-            Проф. Петров П.П.<br />
-            Кафедра программной инженерии
+            Middleware и devtools
+            <br />
+            Persist в localStorage
+            <br />
+            Тесты reducers и selectors
           </p>
         </div>
       </div>
 
       <div className="footer-bottom">
         <div className="copyright">
-          © {currentYear} Клиентская система State Management. Все права защищены.
+          © {currentYear} State Management Lab. Platform for interactive state workflows.
         </div>
         <div className="footer-links">
-          <a href="#documentation" className="footer-link">Документация</a>
-          <a href="#source" className="footer-link">Исходный код</a>
-          <a href="#report" className="footer-link">Отчёт</a>
+          <span className="footer-link">UI</span>
+          <span className="footer-link">Store</span>
+          <span className="footer-link">Roadmap</span>
         </div>
       </div>
     </footer>

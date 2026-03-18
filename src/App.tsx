@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
@@ -6,10 +6,16 @@ import CounterDemo from './components/CounterDemo';
 import TodoDemo from './components/TodoDemo';
 import StateManagementExplanation from './components/StateManagementExplanation';
 import ArchitecturePage from './components/ArchitecturePage';
+import RoadmapPage from './components/RoadmapPage';
 import './style.css';
 
-// Типы для страниц
-type Page = 'home' | 'counter' | 'todo' | 'state-management' | 'architecture';
+export type Page =
+  | 'home'
+  | 'counter'
+  | 'todo'
+  | 'state-management'
+  | 'architecture'
+  | 'roadmap';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -17,7 +23,7 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage />;
+        return <HomePage onNavigate={setCurrentPage} />;
       case 'counter':
         return <CounterDemo />;
       case 'todo':
@@ -26,21 +32,22 @@ function App() {
         return <StateManagementExplanation />;
       case 'architecture':
         return <ArchitecturePage />;
+      case 'roadmap':
+        return <RoadmapPage onNavigate={setCurrentPage} />;
       default:
-        return <HomePage />;
+        return <HomePage onNavigate={setCurrentPage} />;
     }
   };
 
   return (
-    <div className="app-container">
-      <Header 
-        currentPage={currentPage}
-        onNavigate={setCurrentPage}
-      />
-      <main className="main-content">
-        {renderPage()}
-      </main>
-      <Footer />
+    <div className="app-shell">
+      <div className="app-backdrop app-backdrop-left" />
+      <div className="app-backdrop app-backdrop-right" />
+      <div className="app-container">
+        <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+        <main className="main-content">{renderPage()}</main>
+        <Footer />
+      </div>
     </div>
   );
 }
