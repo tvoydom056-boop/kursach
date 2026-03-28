@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { TodoActions, TodoSelectors } from '../state/AppStore';
 import { useAppDispatch, useAppStore } from '../state/useAppStore';
 
@@ -65,17 +65,24 @@ const TodoDemo: React.FC = () => {
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
                 onKeyDown={(event) => event.key === 'Enter' && addTodo()}
+                aria-label="Введите текст новой задачи"
               />
               <select
                 className="todo-select"
                 value={priority}
                 onChange={(event) => setPriority(event.target.value as 'high' | 'medium' | 'low')}
+                aria-label="Выберите приоритет новой задачи"
               >
                 <option value="high">Высокий приоритет</option>
                 <option value="medium">Средний приоритет</option>
                 <option value="low">Низкий приоритет</option>
               </select>
-              <button className="add-button" onClick={addTodo}>
+              <button
+                type="button"
+                className="add-button"
+                onClick={addTodo}
+                aria-label="Добавить новую задачу"
+              >
                 Добавить задачу
               </button>
             </div>
@@ -84,20 +91,26 @@ const TodoDemo: React.FC = () => {
           <div className="toolbar-grid">
             <div className="filter-buttons">
               <button
+                type="button"
                 className={`filter-button ${todoState.filter === 'all' ? 'active' : ''}`}
                 onClick={() => dispatch(TodoActions.setFilter('all'))}
+                aria-label="Показать все задачи"
               >
                 Все
               </button>
               <button
+                type="button"
                 className={`filter-button ${todoState.filter === 'active' ? 'active' : ''}`}
                 onClick={() => dispatch(TodoActions.setFilter('active'))}
+                aria-label="Показать активные задачи"
               >
                 Активные
               </button>
               <button
+                type="button"
                 className={`filter-button ${todoState.filter === 'completed' ? 'active' : ''}`}
                 onClick={() => dispatch(TodoActions.setFilter('completed'))}
+                aria-label="Показать выполненные задачи"
               >
                 Выполненные
               </button>
@@ -109,6 +122,7 @@ const TodoDemo: React.FC = () => {
               value={todoState.searchQuery}
               placeholder="Поиск по задачам"
               onChange={(event) => dispatch(TodoActions.setSearchQuery(event.target.value))}
+              aria-label="Поиск по списку задач"
             />
 
             <div className="sort-controls">
@@ -123,12 +137,14 @@ const TodoDemo: React.FC = () => {
                     ),
                   )
                 }
+                aria-label="Выберите способ сортировки задач"
               >
                 <option value="createdAt">Сортировка по дате</option>
                 <option value="priority">Сортировка по приоритету</option>
                 <option value="text">Сортировка по названию</option>
               </select>
               <button
+                type="button"
                 className="filter-button"
                 onClick={() =>
                   dispatch(
@@ -138,6 +154,7 @@ const TodoDemo: React.FC = () => {
                     ),
                   )
                 }
+                aria-label="Переключить порядок сортировки задач"
               >
                 {todoState.sortOrder === 'asc' ? 'По возрастанию' : 'По убыванию'}
               </button>
@@ -155,12 +172,21 @@ const TodoDemo: React.FC = () => {
             ) : (
               <ul className="todo-items">
                 {visibleTodos.map((todo) => (
-                  <li key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+                  <li
+                    key={todo.id}
+                    className={`todo-item ${todo.completed ? 'completed' : ''}`}
+                    role="listitem"
+                  >
                     <label className="todo-checkbox-row">
                       <input
                         type="checkbox"
                         checked={todo.completed}
                         onChange={() => dispatch(TodoActions.toggleTodo(todo.id))}
+                        aria-label={
+                          todo.completed
+                            ? `Отметить задачу "${todo.text}" как невыполненную`
+                            : `Отметить задачу "${todo.text}" как выполненную`
+                        }
                       />
                       <span className="todo-checkmark" />
                     </label>
@@ -190,15 +216,17 @@ const TodoDemo: React.FC = () => {
                             ),
                           )
                         }
+                        aria-label={`Изменить приоритет задачи ${todo.text}`}
                       >
                         <option value="high">High</option>
                         <option value="medium">Medium</option>
                         <option value="low">Low</option>
                       </select>
                       <button
+                        type="button"
                         className="todo-delete"
                         onClick={() => dispatch(TodoActions.deleteTodo(todo.id))}
-                        title="Удалить задачу"
+                        aria-label={`Удалить задачу ${todo.text}`}
                       >
                         Удалить
                       </button>
@@ -213,10 +241,20 @@ const TodoDemo: React.FC = () => {
         <aside className="card todo-side-panel">
           <h2 className="subsection-title">Быстрые действия</h2>
           <div className="side-actions">
-            <button className="filter-button active" onClick={() => dispatch(TodoActions.toggleAll())}>
+            <button
+              type="button"
+              className="filter-button active"
+              onClick={() => dispatch(TodoActions.toggleAll())}
+              aria-label="Переключить состояние всех задач"
+            >
               Переключить все
             </button>
-            <button className="filter-button" onClick={() => dispatch(TodoActions.clearCompleted())}>
+            <button
+              type="button"
+              className="filter-button"
+              onClick={() => dispatch(TodoActions.clearCompleted())}
+              aria-label="Удалить все выполненные задачи"
+            >
               Очистить выполненные
             </button>
           </div>

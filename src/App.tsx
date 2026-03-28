@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
@@ -6,6 +6,7 @@ import CounterDemo from './components/CounterDemo';
 import TodoDemo from './components/TodoDemo';
 import StateManagementExplanation from './components/StateManagementExplanation';
 import ArchitecturePage from './components/ArchitecturePage';
+import ErrorBoundary from './components/ErrorBoundary';
 import './style.css';
 
 export type Page =
@@ -23,9 +24,17 @@ function App() {
       case 'home':
         return <HomePage onNavigate={setCurrentPage} />;
       case 'counter':
-        return <CounterDemo />;
+        return (
+          <ErrorBoundary title="Ошибка на странице счётчика">
+            <CounterDemo />
+          </ErrorBoundary>
+        );
       case 'todo':
-        return <TodoDemo />;
+        return (
+          <ErrorBoundary title="Ошибка на странице списка задач">
+            <TodoDemo />
+          </ErrorBoundary>
+        );
       case 'state-management':
         return <StateManagementExplanation />;
       case 'architecture':

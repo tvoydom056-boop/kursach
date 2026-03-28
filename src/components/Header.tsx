@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React, { useState } from 'react';
 import type { Page } from '../App';
 
 interface HeaderProps {
@@ -7,6 +7,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navItems = [
     { id: 'home', label: 'Главная', icon: '01' },
     { id: 'counter', label: 'Счётчик', icon: '02' },
@@ -14,6 +16,11 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
     { id: 'state-management', label: 'Теория', icon: '04' },
     { id: 'architecture', label: 'Архитектура', icon: '05' },
   ] as const;
+
+  const handleNavigate = (page: Page) => {
+    onNavigate(page);
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="header">
@@ -36,14 +43,32 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
           </div>
         </div>
 
-        <nav className="navigation">
+        <button
+          type="button"
+          className="burger-button"
+          onClick={() => setIsMenuOpen((previousState) => !previousState)}
+          aria-label={isMenuOpen ? 'Свернуть меню навигации' : 'Открыть меню навигации'}
+          aria-expanded={isMenuOpen}
+          aria-controls="main-navigation"
+        >
+          <span className="burger-line" />
+          <span className="burger-line" />
+          <span className="burger-line" />
+        </button>
+
+        <nav
+          id="main-navigation"
+          className={`navigation ${isMenuOpen ? 'navigation-open' : ''}`}
+          aria-label="Основная навигация"
+        >
           <ul className="nav-list">
             {navItems.map((item) => (
               <li key={item.id} className="nav-item">
                 <button
+                  type="button"
                   className={`nav-button ${currentPage === item.id ? 'active' : ''}`}
-                  onClick={() => onNavigate(item.id as Page)}
-                  title={item.label}
+                  onClick={() => handleNavigate(item.id as Page)}
+                  aria-label={`Перейти на страницу ${item.label}`}
                 >
                   <span className="nav-icon">{item.icon}</span>
                   <span className="nav-label">{item.label}</span>
@@ -54,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
         </nav>
 
         <div className="status-indicator">
-          <div className="status-dot"></div>
+          <div className="status-dot" />
           <span className="status-text">Система активна и готова к работе</span>
         </div>
       </div>

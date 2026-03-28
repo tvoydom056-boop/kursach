@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import type { Page } from '../App';
 
 interface RoadmapPageProps {
@@ -72,12 +72,19 @@ const RoadmapPage: React.FC<RoadmapPageProps> = ({ onNavigate }) => {
             </p>
           </div>
           <div className="analysis-actions">
-            <button className="cta-button primary" onClick={() => onNavigate('todo')}>
+            <button
+              type="button"
+              className="cta-button primary"
+              onClick={() => onNavigate('todo')}
+              aria-label="Открыть страницу задач"
+            >
               Открыть задачи
             </button>
             <button
+              type="button"
               className="cta-button secondary"
               onClick={() => onNavigate('architecture')}
+              aria-label="Открыть страницу архитектуры"
             >
               Посмотреть архитектуру
             </button>

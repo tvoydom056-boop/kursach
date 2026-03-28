@@ -229,6 +229,29 @@ button {
   margin-bottom: 18px;
 }
 
+.burger-button {
+  display: none;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.burger-line {
+  width: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
 .nav-list,
 .features-grid,
 .demo-cards,
@@ -692,6 +715,15 @@ button {
   margin-top: 10px;
 }
 
+.error-boundary {
+  display: grid;
+  gap: 16px;
+}
+
+.error-boundary-details {
+  margin: 0;
+}
+
 .todo-checkbox-row {
   position: relative;
   width: 28px;
@@ -872,7 +904,7 @@ code {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .app-container {
     padding: 14px;
   }
@@ -891,6 +923,18 @@ code {
   .logo {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .burger-button {
+    display: inline-flex;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .navigation.navigation-open {
+    display: block;
   }
 
   .nav-list,
@@ -920,5 +964,73 @@ code {
   .footer-bottom {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .nav-button {
+    text-align: left;
+  }
+
+  .status-indicator {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 375px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .header,
+  .hero-copy,
+  .card,
+  .demo-card,
+  .feature-card,
+  .todo-main-panel,
+  .todo-side-panel,
+  .counter-main-panel {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .logo-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .logo-text,
+  .page-title,
+  .hero-title {
+    word-break: break-word;
+  }
+
+  .step-controls {
+    gap: 10px;
+  }
+
+  .step-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .todo-item,
+  .history-item,
+  .stat-card,
+  .info-item {
+    padding: 16px;
+  }
+
+  .cta-button,
+  .action-button,
+  .management-button,
+  .filter-button,
+  .add-button,
+  .todo-delete,
+  .todo-select,
+  .priority-select,
+  .todo-search,
+  .todo-input {
+    width: 100%;
+    padding: 12px 14px;
   }
 }

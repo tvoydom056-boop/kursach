@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import type { Page } from '../App';
 
 interface HomePageProps {
@@ -38,10 +38,20 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </p>
 
           <div className="cta-buttons">
-            <button className="cta-button primary" onClick={() => onNavigate('counter')}>
+            <button
+              type="button"
+              className="cta-button primary"
+              onClick={() => onNavigate('counter')}
+              aria-label="Открыть страницу счётчика"
+            >
               Открыть счётчик
             </button>
-            <button className="cta-button secondary" onClick={() => onNavigate('architecture')}>
+            <button
+              type="button"
+              className="cta-button secondary"
+              onClick={() => onNavigate('architecture')}
+              aria-label="Открыть страницу архитектуры"
+            >
               Открыть архитектуру
             </button>
           </div>

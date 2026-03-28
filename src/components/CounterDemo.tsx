@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { CounterActions, CounterSelectors } from '../state/AppStore';
 import { useAppDispatch, useAppStore } from '../state/useAppStore';
 
@@ -30,7 +30,9 @@ const CounterDemo: React.FC = () => {
       <section className="counter-grid">
         <article className="card counter-panel counter-main-panel">
           <div className="counter-display">
-            <div className="counter-value">{currentValue}</div>
+            <div className="counter-value" aria-live="polite" aria-atomic="true">
+              {currentValue}
+            </div>
             <div className="counter-label">Текущее значение</div>
           </div>
 
@@ -39,15 +41,19 @@ const CounterDemo: React.FC = () => {
               <span className="control-label">Шаг изменения</span>
               <div className="step-controls">
                 <button
+                  type="button"
                   className="step-button"
                   onClick={() => dispatch(CounterActions.setStep(step - 1))}
+                  aria-label="Уменьшить шаг счётчика"
                 >
                   -
                 </button>
                 <span className="step-value">{step}</span>
                 <button
+                  type="button"
                   className="step-button"
                   onClick={() => dispatch(CounterActions.setStep(step + 1))}
+                  aria-label="Увеличить шаг счётчика"
                 >
                   +
                 </button>
@@ -56,14 +62,18 @@ const CounterDemo: React.FC = () => {
 
             <div className="action-buttons">
               <button
+                type="button"
                 className="action-button decrement"
                 onClick={() => dispatch(CounterActions.decrement())}
+                aria-label="Уменьшить значение счётчика"
               >
                 Уменьшить
               </button>
               <button
+                type="button"
                 className="action-button increment"
                 onClick={() => dispatch(CounterActions.increment())}
+                aria-label="Увеличить значение счётчика"
               >
                 Увеличить
               </button>
@@ -71,15 +81,19 @@ const CounterDemo: React.FC = () => {
 
             <div className="management-buttons">
               <button
+                type="button"
                 className="management-button undo"
                 onClick={() => dispatch(CounterActions.undo())}
                 disabled={!canUndo}
+                aria-label="Отменить последнее изменение счётчика"
               >
                 Отменить
               </button>
               <button
+                type="button"
                 className="management-button reset"
                 onClick={() => dispatch(CounterActions.reset())}
+                aria-label="Сбросить счётчик"
               >
                 Сбросить
               </button>
