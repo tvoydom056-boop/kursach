@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
 
         <div className="logo-section">
           <div className="logo">
-            <span className="logo-icon">SM</span>
+            <span className="logo-icon" aria-hidden="true">SM</span>
             <div>
               <h1 className="logo-text">State Management Lab</h1>
               <p className="tagline">
@@ -69,8 +69,9 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
                   className={`nav-button ${currentPage === item.id ? 'active' : ''}`}
                   onClick={() => handleNavigate(item.id as Page)}
                   aria-label={`Перейти на страницу ${item.label}`}
+                  aria-current={currentPage === item.id ? 'page' : undefined}
                 >
-                  <span className="nav-icon">{item.icon}</span>
+                  <span className="nav-icon" aria-hidden="true">{item.icon}</span>
                   <span className="nav-label">{item.label}</span>
                 </button>
               </li>
@@ -78,8 +79,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
           </ul>
         </nav>
 
-        <div className="status-indicator">
-          <div className="status-dot" />
+        <div className="status-indicator" aria-live="polite">
+          <div className="status-dot" aria-hidden="true" />
           <span className="status-text">Система активна и готова к работе</span>
         </div>
       </div>

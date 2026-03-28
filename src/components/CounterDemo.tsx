@@ -39,7 +39,7 @@ const CounterDemo: React.FC = () => {
           <div className="counter-controls">
             <div className="control-group">
               <span className="control-label">Шаг изменения</span>
-              <div className="step-controls">
+              <div className="step-controls" role="group" aria-label="Управление шагом счётчика">
                 <button
                   type="button"
                   className="step-button"
@@ -48,7 +48,7 @@ const CounterDemo: React.FC = () => {
                 >
                   -
                 </button>
-                <span className="step-value">{step}</span>
+                <span className="step-value" aria-live="polite">{step}</span>
                 <button
                   type="button"
                   className="step-button"
@@ -60,7 +60,7 @@ const CounterDemo: React.FC = () => {
               </div>
             </div>
 
-            <div className="action-buttons">
+            <div className="action-buttons" role="group" aria-label="Основные действия счётчика">
               <button
                 type="button"
                 className="action-button decrement"
@@ -79,7 +79,7 @@ const CounterDemo: React.FC = () => {
               </button>
             </div>
 
-            <div className="management-buttons">
+            <div className="management-buttons" role="group" aria-label="Управление историей счётчика">
               <button
                 type="button"
                 className="management-button undo"
@@ -126,11 +126,11 @@ const CounterDemo: React.FC = () => {
             </div>
           </div>
 
-          <div className="mini-flow">
+          <div className="mini-flow" aria-label="Поток данных от действия к store">
             <div className="flow-pill">Action</div>
-            <div className="flow-arrow">→</div>
+            <div className="flow-arrow" aria-hidden="true">→</div>
             <div className="flow-pill">Reducer</div>
-            <div className="flow-arrow">→</div>
+            <div className="flow-arrow" aria-hidden="true">→</div>
             <div className="flow-pill">Store</div>
           </div>
         </aside>
@@ -142,13 +142,13 @@ const CounterDemo: React.FC = () => {
           <span className="muted-text">Хранится прямо в состоянии счётчика</span>
         </div>
 
-        <div className="history-timeline">
+        <div className="history-timeline" role="list" aria-label="История изменений счётчика">
           {history.map((value, index) => {
             const diff = index === 0 ? 0 : value - history[index - 1];
             const diffLabel = index === 0 ? 'Старт' : `${diff > 0 ? '+' : ''}${diff}`;
 
             return (
-              <div key={`${value}-${index}`} className="history-item">
+              <div key={`${value}-${index}`} className="history-item" role="listitem">
                 <div className="history-step">Шаг {index}</div>
                 <div className="history-value">{value}</div>
                 <div className={`history-change ${diff > 0 ? 'positive' : diff < 0 ? 'negative' : ''}`}>

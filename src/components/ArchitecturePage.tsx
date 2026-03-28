@@ -83,10 +83,10 @@ const ArchitecturePage: React.FC = () => {
       </section>
 
       {import.meta.env.DEV ? (
-        <section className="card performance-section">
+        <section className="card performance-section" aria-labelledby="performance-title">
           <div className="section-heading-row">
             <div>
-              <h2 className="subsection-title">Измерение производительности</h2>
+              <h2 id="performance-title" className="subsection-title">Измерение производительности</h2>
               <p className="body-text">
                 Dev-only тесты для курсовой работы: замер dispatch и selector benchmark.
               </p>
@@ -102,46 +102,64 @@ const ArchitecturePage: React.FC = () => {
             </button>
           </div>
 
+          <p className="visually-hidden" aria-live="polite">
+            {isRunning
+              ? 'Выполняется тест производительности'
+              : results
+                ? 'Результаты теста производительности обновлены'
+                : 'Результаты теста пока не сформированы'}
+          </p>
+
           {results ? (
             <div className="performance-results">
               <div className="performance-group">
                 <h3 className="subsection-title">Dispatch</h3>
-                <div className="performance-table" role="table" aria-label="Результаты dispatch benchmark">
-                  <div className="performance-row performance-head" role="row">
-                    <span role="columnheader">Сценарий</span>
-                    <span role="columnheader">Операций</span>
-                    <span role="columnheader">Время, мс</span>
-                    <span role="columnheader">Ops/sec</span>
-                  </div>
-                  {results.dispatchResults.map((result) => (
-                    <div key={result.scenario} className="performance-row" role="row">
-                      <span role="cell">{result.scenario}</span>
-                      <span role="cell">{result.items}</span>
-                      <span role="cell">{result.durationMs.toFixed(3)}</span>
-                      <span role="cell">{result.opsPerSec.toFixed(2)}</span>
-                    </div>
-                  ))}
-                </div>
+                <table className="performance-table">
+                  <caption className="visually-hidden">Результаты benchmark для dispatch</caption>
+                  <thead>
+                    <tr className="performance-row performance-head">
+                      <th scope="col">Сценарий</th>
+                      <th scope="col">Операций</th>
+                      <th scope="col">Время, мс</th>
+                      <th scope="col">Ops/sec</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {results.dispatchResults.map((result) => (
+                      <tr key={result.scenario} className="performance-row">
+                        <td>{result.scenario}</td>
+                        <td>{result.items}</td>
+                        <td>{result.durationMs.toFixed(3)}</td>
+                        <td>{result.opsPerSec.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
 
               <div className="performance-group">
                 <h3 className="subsection-title">Selectors</h3>
-                <div className="performance-table" role="table" aria-label="Результаты selector benchmark">
-                  <div className="performance-row performance-head" role="row">
-                    <span role="columnheader">Сценарий</span>
-                    <span role="columnheader">Элементов</span>
-                    <span role="columnheader">Время, мс</span>
-                    <span role="columnheader">Ops/sec</span>
-                  </div>
-                  {results.selectorResults.map((result) => (
-                    <div key={result.scenario} className="performance-row" role="row">
-                      <span role="cell">{result.scenario}</span>
-                      <span role="cell">{result.items}</span>
-                      <span role="cell">{result.durationMs.toFixed(3)}</span>
-                      <span role="cell">{result.opsPerSec.toFixed(2)}</span>
-                    </div>
-                  ))}
-                </div>
+                <table className="performance-table">
+                  <caption className="visually-hidden">Результаты benchmark для selectors</caption>
+                  <thead>
+                    <tr className="performance-row performance-head">
+                      <th scope="col">Сценарий</th>
+                      <th scope="col">Элементов</th>
+                      <th scope="col">Время, мс</th>
+                      <th scope="col">Ops/sec</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {results.selectorResults.map((result) => (
+                      <tr key={result.scenario} className="performance-row">
+                        <td>{result.scenario}</td>
+                        <td>{result.items}</td>
+                        <td>{result.durationMs.toFixed(3)}</td>
+                        <td>{result.opsPerSec.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           ) : null}

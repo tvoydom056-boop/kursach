@@ -46,11 +46,16 @@ function App() {
 
   return (
     <div className="app-shell">
-      <div className="app-backdrop app-backdrop-left" />
-      <div className="app-backdrop app-backdrop-right" />
+      <a className="skip-link" href="#main-content">
+        Перейти к основному содержимому
+      </a>
+      <div className="app-backdrop app-backdrop-left" aria-hidden="true" />
+      <div className="app-backdrop app-backdrop-right" aria-hidden="true" />
       <div className="app-container">
         <Header currentPage={currentPage} onNavigate={setCurrentPage} />
-        <main className="main-content">{renderPage()}</main>
+        <main id="main-content" className="main-content" tabIndex={-1}>
+          {renderPage()}
+        </main>
         <Footer />
       </div>
     </div>

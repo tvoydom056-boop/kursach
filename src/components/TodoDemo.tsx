@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { TodoActions, TodoSelectors } from '../state/AppStore';
 import { useAppDispatch, useAppStore } from '../state/useAppStore';
 
@@ -16,6 +16,11 @@ const TodoDemo: React.FC = () => {
 
   const [draft, setDraft] = useState('');
   const [priority, setPriority] = useState<'high' | 'medium' | 'low'>('medium');
+
+  const newTodoInputId = useId();
+  const newTodoPriorityId = useId();
+  const searchInputId = useId();
+  const sortSelectId = useId();
 
   const groupedStats = [
     { label: 'Всего', value: stats.total },
@@ -47,7 +52,7 @@ const TodoDemo: React.FC = () => {
 
       <section className="todo-layout">
         <article className="card todo-main-panel">
-          <div className="todo-stats">
+          <div className="todo-stats" aria-label="Статистика по задачам">
             {groupedStats.map((item) => (
               <div key={item.label} className="stat-card">
                 <div className="stat-number">{item.value}</div>
@@ -58,7 +63,11 @@ const TodoDemo: React.FC = () => {
 
           <div className="todo-input-section">
             <div className="input-group split-input-group">
+              <label className="visually-hidden" htmlFor={newTodoInputId}>
+                Текст новой задачи
+              </label>
               <input
+                id={newTodoInputId}
                 type="text"
                 className="todo-input"
                 placeholder="Например: добавить синхронизацию с API"
@@ -67,7 +76,11 @@ const TodoDemo: React.FC = () => {
                 onKeyDown={(event) => event.key === 'Enter' && addTodo()}
                 aria-label="Введите текст новой задачи"
               />
+              <label className="visually-hidden" htmlFor={newTodoPriorityId}>
+                Приоритет новой задачи
+              </label>
               <select
+                id={newTodoPriorityId}
                 className="todo-select"
                 value={priority}
                 onChange={(event) => setPriority(event.target.value as 'high' | 'medium' | 'low')}
@@ -89,12 +102,13 @@ const TodoDemo: React.FC = () => {
           </div>
 
           <div className="toolbar-grid">
-            <div className="filter-buttons">
+            <div className="filter-buttons" role="group" aria-label="Фильтрация задач">
               <button
                 type="button"
                 className={`filter-button ${todoState.filter === 'all' ? 'active' : ''}`}
                 onClick={() => dispatch(TodoActions.setFilter('all'))}
                 aria-label="Показать все задачи"
+                aria-pressed={todoState.filter === 'all'}
               >
                 Все
               </button>
@@ -103,6 +117,7 @@ const TodoDemo: React.FC = () => {
                 className={`filter-button ${todoState.filter === 'active' ? 'active' : ''}`}
                 onClick={() => dispatch(TodoActions.setFilter('active'))}
                 aria-label="Показать активные задачи"
+                aria-pressed={todoState.filter === 'active'}
               >
                 Активные
               </button>
@@ -111,12 +126,17 @@ const TodoDemo: React.FC = () => {
                 className={`filter-button ${todoState.filter === 'completed' ? 'active' : ''}`}
                 onClick={() => dispatch(TodoActions.setFilter('completed'))}
                 aria-label="Показать выполненные задачи"
+                aria-pressed={todoState.filter === 'completed'}
               >
                 Выполненные
               </button>
             </div>
 
+            <label className="visually-hidden" htmlFor={searchInputId}>
+              Поиск по задачам
+            </label>
             <input
+              id={searchInputId}
               className="todo-search"
               type="text"
               value={todoState.searchQuery}
@@ -126,7 +146,11 @@ const TodoDemo: React.FC = () => {
             />
 
             <div className="sort-controls">
+              <label className="visually-hidden" htmlFor={sortSelectId}>
+                Сортировка задач
+              </label>
               <select
+                id={sortSelectId}
                 className="todo-select"
                 value={todoState.sortBy}
                 onChange={(event) =>
@@ -161,16 +185,16 @@ const TodoDemo: React.FC = () => {
             </div>
           </div>
 
-          <div className="todo-list">
+          <div className="todo-list" aria-live="polite">
             {visibleTodos.length === 0 ? (
-              <div className="empty-state">
+              <div className="empty-state" role="status">
                 <h3 className="empty-title">Ничего не найдено</h3>
                 <p className="empty-description">
                   Попробуй сменить фильтр или добавить новую задачу.
                 </p>
               </div>
             ) : (
-              <ul className="todo-items">
+              <ul className="todo-items" role="list" aria-label="Список задач">
                 {visibleTodos.map((todo) => (
                   <li
                     key={todo.id}
@@ -205,7 +229,11 @@ const TodoDemo: React.FC = () => {
                     </div>
 
                     <div className="todo-actions">
+                      <label className="visually-hidden" htmlFor={`priority-${todo.id}`}>
+                        Приоритет задачи {todo.text}
+                      </label>
                       <select
+                        id={`priority-${todo.id}`}
                         className="priority-select"
                         value={todo.priority}
                         onChange={(event) =>
@@ -240,7 +268,7 @@ const TodoDemo: React.FC = () => {
 
         <aside className="card todo-side-panel">
           <h2 className="subsection-title">Быстрые действия</h2>
-          <div className="side-actions">
+          <div className="side-actions" role="group" aria-label="Массовые действия над задачами">
             <button
               type="button"
               className="filter-button active"
