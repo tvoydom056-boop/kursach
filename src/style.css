@@ -724,6 +724,37 @@ button {
   margin: 0;
 }
 
+.performance-section,
+.performance-results,
+.performance-group {
+  display: grid;
+  gap: 16px;
+}
+
+.performance-section {
+  margin-top: 24px;
+}
+
+.performance-table {
+  display: grid;
+  gap: 10px;
+}
+
+.performance-row {
+  display: grid;
+  grid-template-columns: 1.8fr 0.7fr 0.8fr 0.8fr;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.performance-head {
+  color: var(--brand);
+  font-weight: 700;
+}
+
 .todo-checkbox-row {
   position: relative;
   width: 28px;
@@ -950,7 +981,8 @@ code {
   }
 
   .todo-item,
-  .history-item {
+  .history-item,
+  .performance-row {
     grid-template-columns: 1fr;
   }
 
