@@ -13,7 +13,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
     { id: 'todo', label: 'Задачи', icon: '03' },
     { id: 'state-management', label: 'Теория', icon: '04' },
     { id: 'architecture', label: 'Архитектура', icon: '05' },
-    { id: 'roadmap', label: 'Что дальше', icon: '06' },
   ] as const;
 
   return (

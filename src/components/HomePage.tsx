@@ -41,14 +41,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <button className="cta-button primary" onClick={() => onNavigate('counter')}>
               Открыть счётчик
             </button>
-            <button className="cta-button secondary" onClick={() => onNavigate('roadmap')}>
-              Открыть roadmap
+            <button className="cta-button secondary" onClick={() => onNavigate('architecture')}>
+              Открыть архитектуру
             </button>
           </div>
 
           <div className="hero-stats">
             <div className="stat-card">
-              <div className="stat-number">6</div>
+              <div className="stat-number">5</div>
               <div className="stat-label">Разделов</div>
             </div>
             <div className="stat-card">
@@ -112,11 +112,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="demo-preview">high / medium / low</div>
           </div>
           <div className="demo-card">
-            <h3 className="demo-title">Roadmap</h3>
+            <h3 className="demo-title">Архитектура</h3>
             <p className="demo-description">
-              Направления развития, новые модули и точки роста для следующего этапа.
+              Структура приложения, разделение слоёв и связь интерфейса с собственным store.
             </p>
-            <div className="demo-preview">persist / tests / auth / API</div>
+            <div className="demo-preview">UI / state / integration</div>
           </div>
         </div>
       </div>

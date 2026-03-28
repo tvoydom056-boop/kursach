@@ -6,7 +6,6 @@ import CounterDemo from './components/CounterDemo';
 import TodoDemo from './components/TodoDemo';
 import StateManagementExplanation from './components/StateManagementExplanation';
 import ArchitecturePage from './components/ArchitecturePage';
-import RoadmapPage from './components/RoadmapPage';
 import './style.css';
 
 export type Page =
@@ -14,8 +13,7 @@ export type Page =
   | 'counter'
   | 'todo'
   | 'state-management'
-  | 'architecture'
-  | 'roadmap';
+  | 'architecture';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -32,8 +30,6 @@ function App() {
         return <StateManagementExplanation />;
       case 'architecture':
         return <ArchitecturePage />;
-      case 'roadmap':
-        return <RoadmapPage onNavigate={setCurrentPage} />;
       default:
         return <HomePage onNavigate={setCurrentPage} />;
     }
